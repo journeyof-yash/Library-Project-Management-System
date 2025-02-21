@@ -50,7 +50,7 @@ public class BookManagementView extends JFrame {
     }
 
     private void deleteBook(ActionEvent e) {
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/LibraryManagement", "root", "gyash801@")) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/LMS", "root", "gyash801@")) {
             PreparedStatement stmt = conn.prepareStatement("DELETE FROM books WHERE title = ?");
             stmt.setString(1, bookTitleField.getText().trim());
             int rows = stmt.executeUpdate();

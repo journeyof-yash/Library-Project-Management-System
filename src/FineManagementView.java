@@ -40,7 +40,7 @@ public class FineManagementView extends JFrame {
             JOptionPane.showMessageDialog(null, "Please select the fine paid checkbox before proceeding.");
             return;
         }
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/LibraryManagement", "root", "gyash801@")) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/LMS", "root", "gyash801@")) {
             PreparedStatement stmt = conn.prepareStatement("UPDATE transactions SET fine_paid = ? WHERE transaction_id = ?");
             stmt.setBoolean(1, true);
             stmt.setString(2, transactionIdField.getText().trim());

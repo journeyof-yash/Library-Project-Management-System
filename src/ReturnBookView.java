@@ -97,7 +97,7 @@ public class ReturnBookView extends JFrame {
             return;
         }
 
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "gyash801@")) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/LMS", "root", "gyash801@")) {
             PreparedStatement stmt = conn.prepareStatement("DELETE FROM issued_books WHERE book_id = ?");
             stmt.setString(1, bookIdField.getText().trim());
 

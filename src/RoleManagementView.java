@@ -39,7 +39,7 @@ public class RoleManagementView extends JFrame {
             return;
         }
 
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/LibraryManagement", "root", "gyash801@")) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/LMS", "root", "gyash801@")) {
             PreparedStatement stmt = conn.prepareStatement("UPDATE users SET role = ? WHERE user_id = ?");
             stmt.setString(1, role);
             stmt.setString(2, userId);

@@ -58,7 +58,7 @@ public class MembershipManagementView extends JFrame {
     }
 
     private void modifyMembership(String query, String successMessage) {
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/LibraryManagement", "root", "gyash801@")) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/LMS", "root", "gyash801@")) {
             PreparedStatement stmt = conn.prepareStatement(query);
             String duration = sixMonthsRadio.isSelected() ? "6 Months" : oneYearRadio.isSelected() ? "1 Year" : "2 Years";
             if (query.startsWith("INSERT")) {

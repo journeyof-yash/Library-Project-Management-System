@@ -50,7 +50,7 @@ public class FinePaymentView extends JFrame {
             return;
         }
 
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/LibraryManagement", "root", "gyash801@")) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/LMS", "root", "gyash801@")) {
             PreparedStatement stmt = conn.prepareStatement("UPDATE issued_books SET fine_paid = ? WHERE serial_no = ?");
             stmt.setBoolean(1, true);
             stmt.setString(2, serialNoField.getText().trim());

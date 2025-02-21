@@ -48,7 +48,7 @@ public class IssueBookView extends JFrame {
     }
 
     private void fetchBookDetails() {
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/LibraryManagement", "root", "gyash801@")) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/LMS", "root", "gyash801@")) {
             PreparedStatement stmt = conn.prepareStatement("SELECT book_name, author FROM books WHERE book_id = ?");
             stmt.setString(1, bookIdField.getText().trim());
             ResultSet rs = stmt.executeQuery();

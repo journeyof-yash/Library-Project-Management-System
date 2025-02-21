@@ -55,7 +55,7 @@ public class UserManagementView extends JFrame {
     }
 
     private void modifyUser(String query, String successMessage) {
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/LibraryManagement", "root", "gyash801@")) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/LMS", "root", "gyash801@")) {
             PreparedStatement stmt = conn.prepareStatement(query);
             if (query.startsWith("INSERT")) {
                 stmt.setString(1, userIdField.getText().trim());
