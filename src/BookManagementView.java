@@ -4,26 +4,30 @@ import java.awt.event.ActionEvent;
 import java.sql.*;
 
 public class BookManagementView extends JFrame {
-    private JTextField bookTitleField, authorField, isbnField;
+    private JTextField bookIdField, titleField, authorField, genreField;
     private JButton addBookButton, updateBookButton, deleteBookButton;
 
     public BookManagementView() {
-        setTitle("Library Management System - Book Management");
-        setSize(400, 300);
+        setTitle("Manage Books");
+        setSize(400, 250);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLayout(new GridLayout(4, 2));
+        setLayout(new GridLayout(5, 2));
 
-        add(new JLabel("Book Title:"));
-        bookTitleField = new JTextField();
-        add(bookTitleField);
+        add(new JLabel("Book ID:"));
+        bookIdField = new JTextField();
+        add(bookIdField);
+
+        add(new JLabel("Title:"));
+        titleField = new JTextField();
+        add(titleField);
 
         add(new JLabel("Author:"));
         authorField = new JTextField();
         add(authorField);
 
-        add(new JLabel("ISBN:"));
-        isbnField = new JTextField();
-        add(isbnField);
+        add(new JLabel("Genre:"));
+        genreField = new JTextField();
+        add(genreField);
 
         addBookButton = new JButton("Add Book");
         addBookButton.addActionListener(this::addBook);
@@ -42,17 +46,17 @@ public class BookManagementView extends JFrame {
     }
 
     private void addBook(ActionEvent e) {
-        modifyBook("INSERT INTO books (title, author, isbn) VALUES (?, ?, ?)", "Book added successfully!");
+        modifyBook("INSERT INTO books (title, author, genre, status) VALUES (?, ?, ?, 'Available')", "Book added successfully!");
     }
 
     private void updateBook(ActionEvent e) {
-        modifyBook("UPDATE books SET author = ?, isbn = ? WHERE title = ?", "Book updated successfully!");
+        modifyBook("UPDATE books SET title = ?, author = ?, genre = ? WHERE book_id = ?", "Book updated successfully!");
     }
 
     private void deleteBook(ActionEvent e) {
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/LMS", "root", "gyash801@")) {
-            PreparedStatement stmt = conn.prepareStatement("DELETE FROM books WHERE title = ?");
-            stmt.setString(1, bookTitleField.getText().trim());
+            PreparedStatement stmt = conn.prepareStatement("DELETE FROM books WHERE book_id = ?");
+            stmt.setInt(1, Integer.parseInt(bookIdField.getText().trim()));
             int rows = stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, rows > 0 ? "Book deleted successfully!" : "Book not found!");
         } catch (SQLException ex) {
@@ -61,11 +65,14 @@ public class BookManagementView extends JFrame {
     }
 
     private void modifyBook(String query, String successMessage) {
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "password")) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/LMS", "root", "gyash801@")) {
             PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, bookTitleField.getText().trim());
+            stmt.setString(1, titleField.getText().trim());
             stmt.setString(2, authorField.getText().trim());
-            stmt.setString(3, isbnField.getText().trim());
+            stmt.setString(3, genreField.getText().trim());
+            if (query.startsWith("UPDATE")) {
+                stmt.setInt(4, Integer.parseInt(bookIdField.getText().trim()));
+            }
             int rows = stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, rows > 0 ? successMessage : "Operation failed!");
         } catch (SQLException ex) {

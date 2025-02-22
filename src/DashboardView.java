@@ -63,7 +63,7 @@ public class DashboardView extends JFrame {
     }
 
     private void openIssueBook() {
-        new IssueBookView(); // Opens the issue book window
+        new IssuedBooksView(); // Opens the issue book window
     }
 
     private void openReturnBook() {
